@@ -1,21 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0f;
+  --color-foreground: #f0edf6;
+}
 
 @layer base {
   :root {
     --background: #0a0a0f;
     --foreground: #f0edf6;
-    --card: #1a1a2e;
-    --border: #252540;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: inherit;
-  -webkit-font-smoothing: antialiased;
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
 }
 
 .gradient-text {
