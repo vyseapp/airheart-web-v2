@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/cael", "dest": "/cael/index.html" },
+    { "src": "/cael/(.*)", "dest": "/cael/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
