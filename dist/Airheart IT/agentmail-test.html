@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentMail API Test</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #0a0a0f;
+      color: #f0edf6;
+      padding: 40px;
+    }
+    pre {
+      background: #1a1a2e;
+      border: 1px solid #252540;
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    code {
+      color: #a855f7;
+    }
+    .key {
+      color: #22c55e;
+      word-break: break-all;
+    }
+    .note {
+      color: #6b6880;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>AgentMail Inbox Integration</h1>
+  <p>API key stored in credentials/agentmail_api_key_cael.txt:</p>
+  <pre class="key">am_us_inbox_8ef92d69f6f71b7cf2cf708198254f72a6e242d938e1b8d7079d1bc12364d501</pre>
+
+  <h2>Example Node.js backend (Vercel Function)</h2>
+  <pre><code>// /api/contact.js
+import { AgentMail } from 'agentmail';
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+
+  const { name, email, subject, message } = req.body;
+  const apiKey = process.env.AGENTMAIL_API_KEY; // your key from above
+
+  const client = new AgentMail({ apiKey });
+
+  try {
+    // Send email via AgentMail
+    await client.inboxes.messages.send(
+      'YOUR_INBOX_ID', // Get from agentmail.inboxes.list() or create on first use
+      {
+        to: 'cael@enlightenedrepublic.tech',
+        subject: `[Airheart IT] ${subject}`,
+        text: `
+From: ${name} &lt;${email}&gt;
+Subject: ${subject}
+
+${message}
+        `.trim(),
+        reply_to: email
+      }
+    );
+
+    // Also forward to your human email
+    await client.inboxes.messages.send(
+      'YOUR_INBOX_ID',
+      {
+        to: 'hailey@enlightenedrepublic.tech',
+        subject: `[Forward] Airheart IT Contact: ${subject}`,
+        text: `Forwarded from contact form:\n\n${message}`
+      }
+    );
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('AgentMail error:', error);
+    res.status(500).json({ error: error.message });
+  }
+}</code></pre>
+
+  <p class="note">
+    <strong>Note:</strong> This key gives API access to the Cael inbox at AgentMail.<br>
+    Full AgentMail docs: <a href="https://docs.agentmail.to" style="color:#a855f7;">https://docs.agentmail.to</a><br>
+    Python/Node SDKs available.
+  </p>
+</body>
+</html>
