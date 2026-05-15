@@ -288,19 +288,23 @@
     body{padding-top:68px!important;}
     .er-nav{position:fixed;top:0;left:0;right:0;z-index:9000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,13,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.3s;}
     .er-logo-link{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
-    .er-logo-icon{position:relative;width:56px;height:56px;flex-shrink:0;}
-    .er-logo-icon img{width:56px;height:56px;border-radius:12px;object-fit:cover;display:block;}
-    .er-circuit-svg{position:absolute;top:-10px;left:-10px;width:76px;height:76px;pointer-events:none;}
-    .er-ct{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;opacity:0;}
-    .er-ct-1{stroke:#a855f7;filter:drop-shadow(0 0 3px rgba(168,85,247,0.8));animation:er-circuit-draw 6s ease-in-out infinite 0s;}
-    .er-ct-2{stroke:#22d3ee;filter:drop-shadow(0 0 3px rgba(34,211,238,0.8));animation:er-circuit-draw 6s ease-in-out infinite 2s;}
-    .er-ct-3{stroke:#fb923c;filter:drop-shadow(0 0 3px rgba(251,146,60,0.8));animation:er-circuit-draw 6s ease-in-out infinite 4s;}
-    .er-cn{opacity:0;}
-    .er-cn-1{fill:#a855f7;filter:drop-shadow(0 0 5px #a855f7);animation:er-node-pulse 6s ease-in-out infinite 0s;}
-    .er-cn-2{fill:#22d3ee;filter:drop-shadow(0 0 5px #22d3ee);animation:er-node-pulse 6s ease-in-out infinite 2s;}
-    .er-cn-3{fill:#fb923c;filter:drop-shadow(0 0 5px #fb923c);animation:er-node-pulse 6s ease-in-out infinite 4s;}
-    @keyframes er-circuit-draw{0%,8%{stroke-dashoffset:100;opacity:0;}22%{stroke-dashoffset:0;opacity:0.9;}65%{stroke-dashoffset:0;opacity:0.9;}82%,100%{stroke-dashoffset:-20;opacity:0;}}
-    @keyframes er-node-pulse{0%,25%{opacity:0;transform:scale(0);}35%{opacity:1;transform:scale(1.4);}55%{opacity:0.85;transform:scale(1);}75%,100%{opacity:0;transform:scale(0.5);}}
+    .er-logo-icon{position:relative;width:64px;height:64px;flex-shrink:0;}
+    .er-logo-icon img{width:64px;height:64px;object-fit:cover;display:block;animation:er-heartbeat 2.8s ease-in-out infinite;image-rendering:pixelated;}
+    .er-neuro-svg{position:absolute;top:-14px;left:-14px;width:92px;height:92px;pointer-events:none;}
+    .er-np{fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;}
+    .er-np-a{stroke:#ff0077;filter:drop-shadow(0 0 3px #ff007799);stroke-dasharray:18 300;stroke-dashoffset:300;animation:er-neuro-pulse 3.5s ease-in-out infinite 0s;}
+    .er-np-b{stroke:#00f5d4;filter:drop-shadow(0 0 3px #00f5d499);stroke-dasharray:14 300;stroke-dashoffset:300;animation:er-neuro-pulse 3.5s ease-in-out infinite 0.7s;}
+    .er-np-c{stroke:#b44fff;filter:drop-shadow(0 0 3px #b44fff99);stroke-dasharray:12 300;stroke-dashoffset:300;animation:er-neuro-pulse 3.5s ease-in-out infinite 1.4s;}
+    .er-np-d{stroke:#ff8800;filter:drop-shadow(0 0 3px #ff880099);stroke-dasharray:10 300;stroke-dashoffset:300;animation:er-neuro-pulse 3.5s ease-in-out infinite 2.1s;}
+    .er-np-e{stroke:#ff66bb;filter:drop-shadow(0 0 3px #ff66bb99);stroke-dasharray:16 300;stroke-dashoffset:300;animation:er-neuro-pulse 3.5s ease-in-out infinite 2.8s;}
+    .er-nn{opacity:0;}
+    .er-nn-a{fill:#ff0077;filter:drop-shadow(0 0 4px #ff0077);animation:er-neuro-node 3.5s ease-in-out infinite 1.1s;}
+    .er-nn-b{fill:#00f5d4;filter:drop-shadow(0 0 4px #00f5d4);animation:er-neuro-node 3.5s ease-in-out infinite 1.8s;}
+    .er-nn-c{fill:#b44fff;filter:drop-shadow(0 0 4px #b44fff);animation:er-neuro-node 3.5s ease-in-out infinite 2.5s;}
+    .er-nn-d{fill:#ff8800;filter:drop-shadow(0 0 4px #ff8800);animation:er-neuro-node 3.5s ease-in-out infinite 3.2s;}
+    @keyframes er-neuro-pulse{0%{stroke-dashoffset:300;opacity:0;}8%{opacity:1;}55%{stroke-dashoffset:-100;opacity:0.9;}70%,100%{stroke-dashoffset:-100;opacity:0;}}
+    @keyframes er-neuro-node{0%,30%{opacity:0;transform:scale(0);}40%{opacity:1;transform:scale(1.5);}60%{opacity:0.9;transform:scale(1);}80%,100%{opacity:0;transform:scale(0.3);}}
+    @keyframes er-heartbeat{0%,100%{transform:scale(1);filter:drop-shadow(0 0 6px #ff007766);}9%{transform:scale(1.09);filter:drop-shadow(0 0 18px #ff0077) drop-shadow(0 0 8px #ff66bb);}18%{transform:scale(1);filter:drop-shadow(0 0 8px #ff007766);}27%{transform:scale(1.05);filter:drop-shadow(0 0 12px #ff0077cc);}50%,100%{transform:scale(1);filter:drop-shadow(0 0 6px #ff007766);}}
     .er-logo-text{display:flex;flex-direction:column;gap:3px;}
     .er-logo-name{font-family:'Inter',system-ui,sans-serif;font-size:19px;font-weight:800;color:#e8e6f0;letter-spacing:0.01em;line-height:1;}
     .er-logo-sub{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#a855f7;letter-spacing:0.2em;text-transform:uppercase;line-height:1;opacity:0.7;}
@@ -340,13 +344,21 @@
     <a href="/" class="er-logo-link">
       <div class="er-logo-icon">
         <img src="/assets/heart-logo.png" alt="Enlightened Republic"/>
-        <svg class="er-circuit-svg" viewBox="0 0 48 48" fill="none">
-          <path pathLength="100" class="er-ct er-ct-1" d="M2,20 H10 V4 H24"/>
-          <path pathLength="100" class="er-ct er-ct-2" d="M46,28 H38 V44 H24"/>
-          <path pathLength="100" class="er-ct er-ct-3" d="M12,46 V36 H36 V12 H46"/>
-          <circle class="er-cn er-cn-1" cx="10" cy="4" r="2.5"/>
-          <circle class="er-cn er-cn-2" cx="38" cy="44" r="2.5"/>
-          <circle class="er-cn er-cn-3" cx="36" cy="12" r="2.5"/>
+        <svg class="er-neuro-svg" viewBox="0 0 92 92" fill="none">
+          <path class="er-np er-np-a" d="M46,26 Q36,16 22,18 Q14,20 10,14"/>
+          <path class="er-np er-np-b" d="M46,26 Q56,16 70,18 Q78,20 82,14"/>
+          <path class="er-np er-np-c" d="M30,46 Q20,44 12,50 Q6,55 8,64"/>
+          <path class="er-np er-np-d" d="M62,46 Q72,44 80,50 Q86,55 84,64"/>
+          <path class="er-np er-np-e" d="M38,70 Q28,80 18,76 Q12,72 10,80"/>
+          <path class="er-np er-np-a" d="M54,70 Q64,80 74,76 Q80,72 82,80"/>
+          <path class="er-np er-np-b" d="M22,18 Q18,12 12,8"/>
+          <path class="er-np er-np-c" d="M70,18 Q74,12 80,8"/>
+          <circle class="er-nn er-nn-a" cx="10" cy="14" r="2.5"/>
+          <circle class="er-nn er-nn-b" cx="82" cy="14" r="2.5"/>
+          <circle class="er-nn er-nn-c" cx="8" cy="64" r="2.5"/>
+          <circle class="er-nn er-nn-d" cx="84" cy="64" r="2.5"/>
+          <circle class="er-nn er-nn-a" cx="10" cy="80" r="2"/>
+          <circle class="er-nn er-nn-b" cx="82" cy="80" r="2"/>
         </svg>
       </div>
       <div class="er-logo-text">
