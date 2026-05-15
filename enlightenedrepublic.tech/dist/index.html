@@ -8,11 +8,178 @@
     <link rel="icon" type="image/png" href="/assets/heart-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/index-BmnX4RYD.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DgVW1y4n.css">
+    <script type="module" crossorigin src="/assets/index-Dl27XLEh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Ci6527Jk.css">
+    <style>
+      #root nav{display:none!important;}
+      .er-nav{position:fixed;top:0;left:0;right:0;z-index:9000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,13,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.3s;}
+      .er-logo-link{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+      .er-logo-icon{position:relative;width:56px;height:56px;flex-shrink:0;}
+      .er-logo-icon img{width:56px;height:56px;border-radius:12px;object-fit:cover;display:block;}
+      .er-circuit-svg{position:absolute;top:-10px;left:-10px;width:76px;height:76px;pointer-events:none;}
+      .er-ct{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;opacity:0;}
+      .er-ct-1{stroke:#a855f7;filter:drop-shadow(0 0 3px rgba(168,85,247,0.8));animation:er-circuit-draw 6s ease-in-out infinite 0s;}
+      .er-ct-2{stroke:#22d3ee;filter:drop-shadow(0 0 3px rgba(34,211,238,0.8));animation:er-circuit-draw 6s ease-in-out infinite 2s;}
+      .er-ct-3{stroke:#fb923c;filter:drop-shadow(0 0 3px rgba(251,146,60,0.8));animation:er-circuit-draw 6s ease-in-out infinite 4s;}
+      .er-cn{opacity:0;}
+      .er-cn-1{fill:#a855f7;filter:drop-shadow(0 0 5px #a855f7);animation:er-node-pulse 6s ease-in-out infinite 0s;}
+      .er-cn-2{fill:#22d3ee;filter:drop-shadow(0 0 5px #22d3ee);animation:er-node-pulse 6s ease-in-out infinite 2s;}
+      .er-cn-3{fill:#fb923c;filter:drop-shadow(0 0 5px #fb923c);animation:er-node-pulse 6s ease-in-out infinite 4s;}
+      @keyframes er-circuit-draw{0%,8%{stroke-dashoffset:100;opacity:0;}22%{stroke-dashoffset:0;opacity:0.9;}65%{stroke-dashoffset:0;opacity:0.9;}82%,100%{stroke-dashoffset:-20;opacity:0;}}
+      @keyframes er-node-pulse{0%,25%{opacity:0;transform:scale(0);}35%{opacity:1;transform:scale(1.4);}55%{opacity:0.85;transform:scale(1);}75%,100%{opacity:0;transform:scale(0.5);}}
+      .er-logo-text{display:flex;flex-direction:column;gap:3px;}
+      .er-logo-name{font-family:'Inter',system-ui,sans-serif;font-size:19px;font-weight:800;color:#e8e6f0;letter-spacing:0.01em;line-height:1;}
+      .er-logo-sub{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#a855f7;letter-spacing:0.2em;text-transform:uppercase;line-height:1;opacity:0.7;}
+      .er-nav-pills{display:flex;align-items:center;gap:6px;}
+      .er-pill{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.06em;padding:7px 15px;border-radius:999px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+      .er-pill-systems{color:#ddd6fe;background:rgba(109,40,217,0.22);border:1px solid rgba(124,58,237,0.5);}
+      .er-pill-systems:hover{background:rgba(109,40,217,0.4);}
+      .er-pill-it{color:#a5f3fc;background:rgba(6,182,212,0.18);border:1px solid rgba(6,182,212,0.5);}
+      .er-pill-it:hover{background:rgba(6,182,212,0.35);}
+      .er-pill-products{color:#fed7aa;background:rgba(249,115,22,0.18);border:1px solid rgba(249,115,22,0.5);}
+      .er-pill-products:hover{background:rgba(249,115,22,0.35);}
+      .er-online-btn{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#39ff14;background:linear-gradient(#000,#000) padding-box,repeating-conic-gradient(#111 0% 25%,#e8e8e8 0% 50%) border-box;background-size:auto,8px 8px;border:6px solid transparent;border-radius:2px;padding:4px 12px;text-decoration:none;transform:skewX(-7deg);box-shadow:3px 3px 0 #111;transition:transform 0.12s ease,box-shadow 0.12s ease;white-space:nowrap;position:relative;flex-shrink:0;}
+      .er-online-inner{display:inline-flex;align-items:center;gap:6px;transform:skewX(7deg);position:relative;z-index:1;text-shadow:0 0 8px rgba(57,255,20,0.95),0 0 20px rgba(57,255,20,0.5);}
+      .er-online-btn:hover{box-shadow:5px 5px 0 #111;transform:skewX(-7deg) translate(-1px,-1px);}
+      @media(max-width:768px){.er-online-btn{display:none;}}
+      .er-mobile-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+      .er-mobile-btn span{display:block;width:22px;height:2px;background:#e8e6f0;border-radius:2px;transition:all 0.3s;}
+      .er-mobile-btn.open span:nth-child(1){transform:rotate(45deg) translateY(7px);}
+      .er-mobile-btn.open span:nth-child(2){opacity:0;}
+      .er-mobile-btn.open span:nth-child(3){transform:rotate(-45deg) translateY(-7px);}
+      .er-mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:8999;background:rgba(8,8,13,0.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 24px;flex-direction:column;}
+      .er-mobile-menu.open{display:flex;}
+      .er-mobile-menu a{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6b6880;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none;transition:color 0.2s;}
+      .er-mobile-menu a:last-child{border-bottom:none;}
+      .er-mobile-menu a:hover{color:#e8e6f0;}
+      @media(max-width:768px){.er-nav-pills{display:none;}.er-mobile-btn{display:flex;}.er-nav{padding:0 20px;}}
+    </style>
   </head>
   <body>
+    <nav class="er-nav" id="erNav">
+      <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
+        <a href="/" class="er-logo-link">
+          <div class="er-logo-icon">
+            <img src="/assets/heart-logo.png" alt="Enlightened Republic"/>
+            <svg class="er-circuit-svg" viewBox="0 0 48 48" fill="none">
+              <path pathLength="100" class="er-ct er-ct-1" d="M2,20 H10 V4 H24"/>
+              <path pathLength="100" class="er-ct er-ct-2" d="M46,28 H38 V44 H24"/>
+              <path pathLength="100" class="er-ct er-ct-3" d="M12,46 V36 H36 V12 H46"/>
+              <circle class="er-cn er-cn-1" cx="10" cy="4" r="2.5"/>
+              <circle class="er-cn er-cn-2" cx="38" cy="44" r="2.5"/>
+              <circle class="er-cn er-cn-3" cx="36" cy="12" r="2.5"/>
+            </svg>
+          </div>
+          <div class="er-logo-text">
+            <span class="er-logo-name">Enlightened Republic</span>
+            <span class="er-logo-sub">▲ ADVANCING THE SKIES</span>
+          </div>
+        </a>
+        <a href="https://enlightenedrepublic.online/" target="_blank" rel="noopener noreferrer" class="er-online-btn">
+          <span class="er-online-inner">↗ enlightenedrepublic.online</span>
+        </a>
+      </div>
+      <div class="er-nav-pills">
+        <a href="/AirheartSystems/" class="er-pill er-pill-systems">⚡ Airheart Systems</a>
+        <a href="/AirheartIT/" class="er-pill er-pill-it">🔧 Airheart IT</a>
+        <a href="/AirheartProducts/" class="er-pill er-pill-products">📦 Airheart Products</a>
+      </div>
+      <button class="er-mobile-btn" id="erMobileBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="er-mobile-menu" id="erMobileMenu">
+      <a href="/">← Enlightened Republic</a>
+      <a href="/AirheartSystems/">⚡ Airheart Systems</a>
+      <a href="/AirheartIT/">🔧 Airheart IT</a>
+      <a href="/AirheartProducts/">📦 Airheart Products</a>
+      <a href="https://enlightenedrepublic.online/" target="_blank" rel="noopener noreferrer" style="color:#a78bfa!important;">↗ enlightenedrepublic.online</a>
+    </div>
+    <script>(function(){var nav=document.getElementById('erNav');window.addEventListener('scroll',function(){nav.style.background=window.scrollY>20?'rgba(8,8,13,0.97)':'rgba(8,8,13,0.88)';});var btn=document.getElementById('erMobileBtn');var menu=document.getElementById('erMobileMenu');btn.addEventListener('click',function(){btn.classList.toggle('open');menu.classList.toggle('open');});document.querySelectorAll('.er-mobile-menu a').forEach(function(a){a.addEventListener('click',function(){btn.classList.remove('open');menu.classList.remove('open');});});})();</script>
     <div id="root"></div>
+
+    <!-- Services Ticker -->
+    <style>
+      #er-ticker{width:100%;overflow:hidden;background:linear-gradient(90deg,#07040f 0%,#0d0518 40%,#07040f 100%);border-top:1px solid rgba(168,85,247,0.25);border-bottom:1px solid rgba(168,85,247,0.18);padding:0;position:relative;z-index:10;}
+      #er-ticker::before,#er-ticker::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+      #er-ticker::before{left:0;background:linear-gradient(90deg,#07040f,transparent);}
+      #er-ticker::after{right:0;background:linear-gradient(270deg,#07040f,transparent);}
+      .er-ticker-wrap{display:flex;align-items:center;height:44px;}
+      .er-ticker-track{display:flex;align-items:center;gap:0;white-space:nowrap;animation:er-scroll 55s linear infinite;will-change:transform;}
+      .er-ticker-track:hover{animation-play-state:paused;}
+      @keyframes er-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+      .er-ti{display:inline-flex;align-items:center;gap:9px;padding:0 26px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:0.05em;color:rgba(220,210,255,0.75);transition:color 0.2s;cursor:default;flex-shrink:0;}
+      .er-ti:hover{color:#e2d9ff;}
+      .er-ti .e{font-size:14px;display:inline-block;}
+      .er-ti-sep{color:rgba(168,85,247,0.4);font-size:10px;padding:0 2px;flex-shrink:0;}
+      /* per-emoji animations */
+      .e-spin{animation:er-espin 3s linear infinite;}
+      .e-pulse{animation:er-epulse 1.8s ease-in-out infinite;}
+      .e-bounce{animation:er-ebounce 1.2s ease-in-out infinite;}
+      .e-float{animation:er-efloat 2.5s ease-in-out infinite;}
+      .e-glitch{animation:er-eglitch 4s steps(1) infinite;}
+      .e-orbit{animation:er-eorbit 2s linear infinite;}
+      .e-ping{animation:er-eping 2s ease-out infinite;}
+      .e-shake{animation:er-eshake 0.6s ease-in-out infinite;}
+      @keyframes er-espin{to{transform:rotate(360deg);}}
+      @keyframes er-epulse{0%,100%{transform:scale(1);opacity:0.85;}50%{transform:scale(1.35);opacity:1;filter:drop-shadow(0 0 6px #a855f7);}}
+      @keyframes er-ebounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+      @keyframes er-efloat{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-3px) rotate(5deg);}}
+      @keyframes er-eglitch{0%,90%,100%{transform:none;filter:none;}91%{transform:translate(2px,-1px);filter:hue-rotate(90deg);}93%{transform:translate(-2px,1px);filter:hue-rotate(-90deg);}95%{transform:none;filter:brightness(2);}}
+      @keyframes er-eorbit{0%{transform:rotate(0deg) translateX(2px) rotate(0deg);}100%{transform:rotate(360deg) translateX(2px) rotate(-360deg);}}
+      @keyframes er-eping{0%,100%{transform:scale(1);opacity:0.8;}40%{transform:scale(1.4);opacity:1;filter:drop-shadow(0 0 8px #22d3ee);}60%{transform:scale(1);opacity:0.9;}}
+      @keyframes er-eshake{0%,100%{transform:rotate(0deg);}20%{transform:rotate(-12deg);}40%{transform:rotate(10deg);}60%{transform:rotate(-8deg);}80%{transform:rotate(6deg);}}
+    </style>
+    <div id="er-ticker" style="display:none;">
+      <div class="er-ticker-wrap">
+        <div class="er-ticker-track" id="er-ticker-track"></div>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var items = [
+        {text:'Innovative Solutions', emoji:'✦', cls:'e-pulse', color:'#c084fc'},
+        {text:'Cyber Security', emoji:'🛡️', cls:'e-ping', color:'#22d3ee'},
+        {text:'Cloud Services', emoji:'🌩️', cls:'e-float', color:'#60a5fa'},
+        {text:'Stripe-Secured Payments', emoji:'💳', cls:'e-bounce', color:'#34d399'},
+        {text:'Instant Digital Delivery', emoji:'⚡', cls:'e-bounce', color:'#fbbf24'},
+        {text:'No Account Required', emoji:'🚀', cls:'e-float', color:'#f472b6'},
+        {text:'Built for OpenClaw + MCP', emoji:'🦾', cls:'e-pulse', color:'#a78bfa'},
+        {text:'Official Plugin API', emoji:'💫', cls:'e-orbit', color:'#c084fc'},
+        {text:'Enlightened Republic Agent Stack', emoji:'🧬', cls:'e-glitch', color:'#fb923c'},
+        {text:'Managed IT Operations', emoji:'⚙️', cls:'e-spin', color:'#94a3b8'},
+        {text:'Infrastructure Audits & Hardening', emoji:'🔬', cls:'e-ping', color:'#22d3ee'},
+        {text:'Software & API Engineering', emoji:'🖥️', cls:'e-bounce', color:'#60a5fa'},
+        {text:'Custom AI Agents', emoji:'🤖', cls:'e-glitch', color:'#a78bfa'},
+        {text:'Smart Websites', emoji:'🌐', cls:'e-orbit', color:'#34d399'},
+        {text:'Business Automation', emoji:'⚡', cls:'e-shake', color:'#fbbf24'},
+      ];
+      function buildItem(item) {
+        return '<span class="er-ti"><span class="e ' + item.cls + '" style="color:' + item.color + '">' + item.emoji + '</span>' + item.text + '</span><span class="er-ti-sep">◆</span>';
+      }
+      var html = items.map(buildItem).join('') + items.map(buildItem).join('');
+      document.getElementById('er-ticker-track').innerHTML = html;
+
+      function insertTicker() {
+        var root = document.getElementById('root');
+        if (!root) return false;
+        var section = root.querySelector('section');
+        if (!section) return false;
+        var ticker = document.getElementById('er-ticker');
+        section.parentNode.insertBefore(ticker, section.nextSibling);
+        ticker.style.display = '';
+        return true;
+      }
+
+      if (!insertTicker()) {
+        var obs = new MutationObserver(function() {
+          if (insertTicker()) obs.disconnect();
+        });
+        obs.observe(document.getElementById('root') || document.body, {childList:true, subtree:true});
+        setTimeout(function(){ obs.disconnect(); insertTicker(); }, 3000);
+      }
+    })();
+    </script>
 
     <!-- Community Banner — appears on every page -->
     <div id="er-community" style="

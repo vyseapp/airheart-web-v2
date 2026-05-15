@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airheart Systems | Custom AI Setups & Digital Solutions</title>
+  <link rel="icon" type="image/png" href="/assets/airheart-systems-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #f0edf6;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: #252540; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6b6880; }
+    ::selection { background: rgba(168,85,247,0.3); color: white; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 100px 0; }
+    .section-label {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.2em;
+      background: linear-gradient(135deg, #a855f7, #ec4899, #f97316);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
+    .section-sub { color: #9895b0; max-width: 560px; }
+
+    #orb-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+    /* NAVBAR */
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 0; transition: all 0.3s; }
+    .navbar.scrolled { background: rgba(10,10,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #252540; padding: 10px 0; }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; text-decoration: none; color: #f0edf6; }
+    .nav-logo-img {
+      height: 36px; width: 36px; object-fit: contain; border-radius: 8px;
+      animation: pulse-glow 2.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(236,72,153,0.45));
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: #9895b0; transition: color 0.2s; }
+    .nav-links a:hover { color: #f0edf6; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 13px; font-weight: 600; padding: 10px 22px;
+      border-radius: 999px; background: linear-gradient(135deg, #a855f7, #ec4899, #f97316);
+      color: white !important; transition: opacity 0.2s, transform 0.2s; text-decoration: none;
+    }
+    .nav-back:hover { opacity: 0.9; transform: translateY(-1px); }
+    .nav-cta {
+      background: linear-gradient(135deg, #a855f7, #ec4899, #f97316);
+      color: white !important; font-size: 13px; font-weight: 600;
+      padding: 10px 22px; border-radius: 999px; transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .nav-sister {
+      background: linear-gradient(135deg, #06b6d4, #38bdf8, #3b82f6);
+      color: white !important; font-size: 13px; font-weight: 600;
+      padding: 10px 22px; border-radius: 999px; transition: opacity 0.2s, transform 0.2s; text-decoration: none;
+    }
+    .nav-sister:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: #f0edf6; border-radius: 2px; transition: all 0.3s; }
+    .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
+    .mobile-menu { display: none; background: rgba(10,10,15,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid #252540; padding: 16px 24px; flex-direction: column; gap: 16px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #9895b0; font-size: 14px; font-weight: 500; }
+    .mobile-menu .mobile-back { background: linear-gradient(135deg, #a855f7, #ec4899, #f97316); color: white; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 5px; padding: 10px 20px; border-radius: 999px; width: fit-content; transition: opacity 0.2s; -webkit-text-fill-color: white; }
+    .mobile-menu .mobile-cta { background: linear-gradient(135deg, #a855f7, #ec4899, #f97316); color: white !important; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 999px; width: fit-content; }
+
+    @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: flex; } }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; z-index: 1; padding-top: 80px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(10,10,15,0.25) 0%, rgba(10,10,15,0.5) 45%, rgba(10,10,15,0.78) 100%), linear-gradient(to bottom, rgba(10,10,15,0.1) 0%, rgba(10,10,15,0.55) 80%, rgba(10,10,15,0.95) 100%); }
+    .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+    .hero-content { grid-column: 2; text-align: left; padding-left: 5rem; }
+    .hero-content h1 { font-size: clamp(2.2rem, 3.5vw, 3.5rem) !important; }
+    @media (max-width: 768px) { .hero .container { grid-template-columns: 1fr; } .hero-content { grid-column: 1; text-align: center; } .hero-content h1 { font-size: clamp(2rem, 7vw, 3rem); } }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(168,85,247,0.12); color: #a855f7;
+      font-size: 13px; font-weight: 500; padding: 6px 16px;
+      border-radius: 999px; border: 1px solid rgba(168,85,247,0.2); margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(2.4rem, 7vw, 4.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+    .hero h1 .highlight { background: linear-gradient(135deg, #a855f7, #ec4899, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { color: #9895b0; font-size: 17px; max-width: 580px; margin: 0 0 32px; line-height: 1.7; }
+    .hero-buttons { display: flex; gap: 12px; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 30px; border-radius: 999px; font-weight: 600; font-size: 14px; background: linear-gradient(135deg, #a855f7, #ec4899, #f97316); color: #fff; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; border: none; cursor: pointer; text-decoration: none; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(168,85,247,0.25); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 30px; border-radius: 999px; font-weight: 600; font-size: 14px; background: rgba(255,255,255,0.04); color: #f0edf6; border: 1px solid #252540; transition: background 0.2s, transform 0.2s; text-decoration: none; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 40px; justify-content: flex-start; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { display: block; font-size: 24px; font-weight: 700; font-family: 'JetBrains Mono', monospace; background: linear-gradient(135deg, #a855f7, #ec4899, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-stat .label { font-size: 11px; color: #6b6880; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; margin-top: 48px; }
+    .service-card { background: #1a1a2e; border: 1px solid #252540; border-radius: 16px; padding: 32px; transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1); position: relative; overflow: hidden; }
+    .service-card:hover { transform: translateY(-4px); border-color: rgba(168,85,247,0.3); box-shadow: 0 12px 40px rgba(168,85,247,0.08); }
+    .service-card .icon { font-size: 36px; margin-bottom: 16px; }
+    .service-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .service-card p { color: #9895b0; font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+    .service-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .service-card ul li { font-size: 13px; color: #6b6880; display: flex; align-items: center; gap: 8px; }
+    .service-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 16px; background: radial-gradient(600px circle at 50% 50%, rgba(168,85,247,0.04), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+    .service-card:hover::after { opacity: 1; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .about-text p { color: #9895b0; margin-bottom: 16px; line-height: 1.8; }
+    .about-text .emphasis { font-weight: 600; color: #a855f7; }
+    .about-image { display: flex; justify-content: center; }
+    .about-image img { width: 260px; height: 260px; object-fit: cover; border-radius: 20px; border: 2px solid rgba(168,85,247,0.3); box-shadow: 0 0 40px rgba(168,85,247,0.2); }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 48px; }
+    .pricing-card { background: #1a1a2e; border: 1px solid #252540; border-radius: 16px; padding: 32px; transition: all 0.3s; position: relative; }
+    .pricing-card:hover { transform: translateY(-4px); border-color: rgba(168,85,247,0.3); }
+    .pricing-card.featured { border-color: rgba(168,85,247,0.4); background: linear-gradient(135deg, #1a1a2e, #1e1a35); }
+    .pricing-card.featured::before { content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #a855f7, #ec4899); color: white; font-size: 11px; font-weight: 600; padding: 4px 16px; border-radius: 999px; white-space: nowrap; }
+    .pricing-card .plan-name { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .pricing-card .price { font-size: 32px; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .pricing-card .price-unit { font-size: 14px; color: #6b6880; font-weight: 400; }
+    .pricing-card .price-desc { color: #6b6880; font-size: 13px; margin-bottom: 20px; }
+    .pricing-card ul { list-style: none; margin-bottom: 24px; }
+    .pricing-card ul li { font-size: 13px; color: #9895b0; padding: 6px 0; display: flex; align-items: center; gap: 8px; }
+    .pricing-card ul li::before { content: '✓'; color: #a855f7; font-weight: 700; }
+    .btn-outline { display: block; text-align: center; padding: 12px; border-radius: 999px; font-weight: 600; font-size: 13px; border: 1px solid #252540; transition: all 0.2s; color: #f0edf6; }
+    .btn-outline:hover { background: rgba(255,255,255,0.04); border-color: rgba(168,85,247,0.3); }
+    .pricing-card.featured .btn-outline { background: linear-gradient(135deg, #a855f7, #ec4899); color: white; border: none; }
+    .pricing-card.featured .btn-outline:hover { opacity: 0.9; }
+
+    /* CONTACT */
+    .contact-section { border-top: 1px solid #252540; }
+    .contact-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .contact-info-card { display: flex; align-items: center; gap: 16px; background: #1a1a2e; border: 1px solid #252540; border-radius: 16px; padding: 20px; }
+    .contact-info-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: rgba(168,85,247,0.1); border-radius: 12px; font-size: 20px; flex-shrink: 0; }
+    .contact-info-label { font-size: 11px; color: #6b6880; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-info-value { font-size: 13px; color: #f0edf6; word-break: break-all; overflow-wrap: anywhere; }
+    .contact-info-value a { color: #f0edf6; transition: color 0.2s; }
+    .contact-info-value a:hover { color: #a855f7; }
+
+    /* FORM */
+    .contact-form-wrap { background: #1a1a2e; border: 1px solid #252540; border-radius: 20px; padding: 40px; max-width: 640px; margin: 0 auto; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 13px; font-weight: 500; color: #9895b0; margin-bottom: 6px; }
+    .form-input {
+      width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.04);
+      border: 1px solid #252540; border-radius: 12px; color: #f0edf6; font-size: 14px;
+      font-family: 'Inter', sans-serif; transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    .form-input::placeholder { color: #6b6880; }
+    .form-input:focus { border-color: rgba(168,85,247,0.5); box-shadow: 0 0 0 3px rgba(168,85,247,0.08); }
+    .form-input option { background: #1a1a2e; }
+    .form-textarea { resize: none; min-height: 120px; }
+    .form-submit {
+      width: 100%; padding: 14px; border-radius: 999px; border: none; cursor: pointer;
+      font-weight: 600; font-size: 14px; font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #a855f7, #ec4899, #f97316); color: white;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; margin-top: 8px;
+    }
+    .form-submit:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(168,85,247,0.25); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .form-success { text-align: center; padding: 40px 0; }
+    .form-success .icon { font-size: 48px; margin-bottom: 16px; }
+    .form-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 12px; padding: 12px 16px; font-size: 13px; color: #f87171; margin-top: 12px; }
+
+    /* FOOTER */
+    .footer-bottom { padding: 24px 0; text-align: center; color: #6b6880; font-size: 13px; border-top: 1px solid #252540; }
+    .footer-bottom .family { color: #a855f7; font-weight: 500; }
+
+    /* ANIMATIONS */
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 14px rgba(236,72,153,0.4)); }
+      50% { transform: scale(1.06); filter: drop-shadow(0 0 28px rgba(236,72,153,0.7)); }
+    }
+
+    @media (max-width: 640px) { .section { padding: 60px 0; } .hero h1 { font-size: 2rem; } .hero p { font-size: 15px; } .hero-stats { gap: 24px; } .pricing-grid { grid-template-columns: 1fr; } }
+
+    /* ===== BUSINESS CORE BUILDER ===== */
+    #builder-overlay {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(12px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #builder-overlay.open { display: flex; }
+    #builder-container {
+      background: #0f0f1a; border: 1px solid #252540; border-radius: 24px;
+      width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 40px 140px rgba(0,0,0,0.9);
+    }
+    .builder-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 32px; border-bottom: 1px solid #252540;
+      position: sticky; top: 0; background: #0f0f1a; z-index: 5;
+    }
+    .builder-header h2 { font-size: 20px; font-weight: 800; }
+    .builder-header p { color: #9895b0; font-size: 13px; margin-top: 3px; }
+    .builder-close {
+      background: rgba(255,255,255,0.05); border: 1px solid #252540; border-radius: 50%;
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #9895b0; font-size: 18px; transition: all 0.2s; flex-shrink: 0;
+    }
+    .builder-close:hover { background: rgba(255,255,255,0.1); color: #f0edf6; }
+    .builder-back {
+      display: inline-flex; align-items: center; gap: 6px; background: none; border: none;
+      color: #9895b0; font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 20px;
+      font-family: 'Inter',sans-serif; transition: color 0.2s;
+    }
+    .builder-back:hover { color: #f0edf6; }
+    .bopt {
+      border: 1px solid #252540; border-radius: 12px; padding: 16px;
+      cursor: pointer; transition: all 0.18s; background: #1a1a2e; position: relative;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .bopt:hover { border-color: rgba(168,85,247,0.4); background: #1e1a35; }
+    .bopt.sel { border-color: rgba(168,85,247,0.75); background: rgba(168,85,247,0.09); box-shadow: 0 0 0 1px rgba(168,85,247,0.35); }
+    .bopt .bck {
+      width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid #252540; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.18s;
+    }
+    .bopt.sel .bck { background: linear-gradient(135deg,#a855f7,#ec4899); border-color: transparent; }
+    .bopt .bck::after { content: ''; display: none; width: 10px; height: 7px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg) translate(1px,-1px); }
+    .bopt.sel .bck::after { display: block; }
+    .bopt .bl { font-size: 14px; font-weight: 600; color: #f0edf6; margin-bottom: 4px; }
+    .bopt .bd { font-size: 12px; color: #6b6880; line-height: 1.6; }
+    .bopt .bp {
+      font-size: 13px; font-weight: 700; margin-top: 6px; font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg,#a855f7,#ec4899); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sum-divider { border: none; border-top: 1px solid #252540; margin: 16px 0; }
+    .sum-total { display: flex; justify-content: space-between; align-items: center; }
+    .sum-total .tl { font-size: 15px; font-weight: 700; }
+    .sum-total .ta {
+      font-size: 24px; font-weight: 800; font-family: 'JetBrains Mono',monospace;
+      background: linear-gradient(135deg,#a855f7,#ec4899,#f97316);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .builder-cta {
+      margin-top: 20px; width: 100%; padding: 14px; border-radius: 999px;
+      background: linear-gradient(135deg,#a855f7,#ec4899,#f97316);
+      color: white; font-weight: 700; font-size: 15px; font-family: 'Inter',sans-serif;
+      border: none; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+    }
+    .builder-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    @media (max-width: 640px) {
+      #builder-overlay { padding: 0; align-items: flex-end; }
+      #builder-container { border-radius: 24px 24px 0 0; max-height: 94vh; }
+      .builder-header { padding: 20px 20px; }
+    }
+  </style>
+  <style>
+    .navbar{display:none!important;}
+    body{padding-top:68px!important;}
+    .er-nav{position:fixed;top:0;left:0;right:0;z-index:9000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,13,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.3s;}
+    .er-logo-link{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+    .er-logo-icon{position:relative;width:56px;height:56px;flex-shrink:0;}
+    .er-logo-icon img{width:56px;height:56px;border-radius:12px;object-fit:cover;display:block;}
+    .er-circuit-svg{position:absolute;top:-10px;left:-10px;width:76px;height:76px;pointer-events:none;}
+    .er-ct{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;opacity:0;}
+    .er-ct-1{stroke:#a855f7;filter:drop-shadow(0 0 3px rgba(168,85,247,0.8));animation:er-circuit-draw 6s ease-in-out infinite 0s;}
+    .er-ct-2{stroke:#22d3ee;filter:drop-shadow(0 0 3px rgba(34,211,238,0.8));animation:er-circuit-draw 6s ease-in-out infinite 2s;}
+    .er-ct-3{stroke:#fb923c;filter:drop-shadow(0 0 3px rgba(251,146,60,0.8));animation:er-circuit-draw 6s ease-in-out infinite 4s;}
+    .er-cn{opacity:0;}
+    .er-cn-1{fill:#a855f7;filter:drop-shadow(0 0 5px #a855f7);animation:er-node-pulse 6s ease-in-out infinite 0s;}
+    .er-cn-2{fill:#22d3ee;filter:drop-shadow(0 0 5px #22d3ee);animation:er-node-pulse 6s ease-in-out infinite 2s;}
+    .er-cn-3{fill:#fb923c;filter:drop-shadow(0 0 5px #fb923c);animation:er-node-pulse 6s ease-in-out infinite 4s;}
+    @keyframes er-circuit-draw{0%,8%{stroke-dashoffset:100;opacity:0;}22%{stroke-dashoffset:0;opacity:0.9;}65%{stroke-dashoffset:0;opacity:0.9;}82%,100%{stroke-dashoffset:-20;opacity:0;}}
+    @keyframes er-node-pulse{0%,25%{opacity:0;transform:scale(0);}35%{opacity:1;transform:scale(1.4);}55%{opacity:0.85;transform:scale(1);}75%,100%{opacity:0;transform:scale(0.5);}}
+    .er-logo-text{display:flex;flex-direction:column;gap:3px;}
+    .er-logo-name{font-family:'Inter',system-ui,sans-serif;font-size:19px;font-weight:800;color:#e8e6f0;letter-spacing:0.01em;line-height:1;}
+    .er-logo-sub{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#a855f7;letter-spacing:0.2em;text-transform:uppercase;line-height:1;opacity:0.7;}
+    .er-nav-pills{display:flex;align-items:center;gap:6px;}
+    .er-pill{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.06em;padding:7px 15px;border-radius:999px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+    .er-pill-systems{color:#ddd6fe;background:rgba(109,40,217,0.22);border:1px solid rgba(124,58,237,0.5);}
+    .er-pill-systems:hover{background:rgba(109,40,217,0.4);}
+    .er-pill-it{color:#a5f3fc;background:rgba(6,182,212,0.18);border:1px solid rgba(6,182,212,0.5);}
+    .er-pill-it:hover{background:rgba(6,182,212,0.35);}
+    .er-pill-products{color:#fed7aa;background:rgba(249,115,22,0.18);border:1px solid rgba(249,115,22,0.5);}
+    .er-pill-products:hover{background:rgba(249,115,22,0.35);}
+    .er-online-btn{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#39ff14;background:linear-gradient(#000,#000) padding-box,repeating-conic-gradient(#111 0% 25%,#e8e8e8 0% 50%) border-box;background-size:auto,8px 8px;border:6px solid transparent;border-radius:2px;padding:4px 12px;text-decoration:none;transform:skewX(-7deg);box-shadow:3px 3px 0 #111;transition:transform 0.12s ease,box-shadow 0.12s ease;white-space:nowrap;position:relative;flex-shrink:0;}
+    .er-online-inner{display:inline-flex;align-items:center;gap:6px;transform:skewX(7deg);position:relative;z-index:1;text-shadow:0 0 8px rgba(57,255,20,0.95),0 0 20px rgba(57,255,20,0.5);}
+    .er-online-btn:hover{box-shadow:5px 5px 0 #111;transform:skewX(-7deg) translate(-1px,-1px);}
+    @media(max-width:768px){.er-online-btn{display:none;}}
+    .er-mobile-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .er-mobile-btn span{display:block;width:22px;height:2px;background:#e8e6f0;border-radius:2px;transition:all 0.3s;}
+    .er-mobile-btn.open span:nth-child(1){transform:rotate(45deg) translateY(7px);}
+    .er-mobile-btn.open span:nth-child(2){opacity:0;}
+    .er-mobile-btn.open span:nth-child(3){transform:rotate(-45deg) translateY(-7px);}
+    .er-mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:8999;background:rgba(8,8,13,0.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 24px;flex-direction:column;}
+    .er-mobile-menu.open{display:flex;}
+    .er-mobile-menu a{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6b6880;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none;transition:color 0.2s;}
+    .er-mobile-menu a:last-child{border-bottom:none;}
+    .er-mobile-menu a:hover{color:#e8e6f0;}
+    @media(max-width:768px){.er-nav-pills{display:none;}.er-mobile-btn{display:flex;}.er-nav{padding:0 20px;}}
+  </style>
+</head>
+<body>
+
+  <canvas id="orb-canvas"></canvas>
+
+  <nav class="er-nav" id="erNav">
+    <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
+      <a href="/" class="er-logo-link">
+        <div class="er-logo-icon">
+          <img src="/assets/heart-logo.png" alt="Enlightened Republic"/>
+          <svg class="er-circuit-svg" viewBox="0 0 48 48" fill="none">
+            <path pathLength="100" class="er-ct er-ct-1" d="M2,20 H10 V4 H24"/>
+            <path pathLength="100" class="er-ct er-ct-2" d="M46,28 H38 V44 H24"/>
+            <path pathLength="100" class="er-ct er-ct-3" d="M12,46 V36 H36 V12 H46"/>
+            <circle class="er-cn er-cn-1" cx="10" cy="4" r="2.5"/>
+            <circle class="er-cn er-cn-2" cx="38" cy="44" r="2.5"/>
+            <circle class="er-cn er-cn-3" cx="36" cy="12" r="2.5"/>
+          </svg>
+        </div>
+        <div class="er-logo-text">
+          <span class="er-logo-name">Enlightened Republic</span>
+          <span class="er-logo-sub">▲ ADVANCING THE SKIES</span>
+        </div>
+      </a>
+      <a href="https://enlightenedrepublic.online/" target="_blank" rel="noopener noreferrer" class="er-online-btn"><span class="er-online-inner">↗ enlightenedrepublic.online</span></a>
+    </div>
+    <div class="er-nav-pills">
+      <a href="/AirheartSystems/" class="er-pill er-pill-systems">⚡ Airheart Systems</a>
+      <a href="/AirheartIT/" class="er-pill er-pill-it">🔧 Airheart IT</a>
+      <a href="/AirheartProducts/" class="er-pill er-pill-products">📦 Airheart Products</a>
+    </div>
+    <button class="er-mobile-btn" id="erMobileBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="er-mobile-menu" id="erMobileMenu">
+    <a href="/">← Enlightened Republic</a>
+    <a href="/AirheartSystems/">⚡ Airheart Systems</a>
+    <a href="/AirheartIT/">🔧 Airheart IT</a>
+    <a href="/AirheartProducts/">📦 Airheart Products</a>
+    <a href="https://enlightenedrepublic.online/" target="_blank" rel="noopener noreferrer" style="color:#a78bfa!important;">↗ enlightenedrepublic.online</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <img src="/assets/mac-hero-banner.png" alt="" class="hero-bg" />
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">🚀 Now accepting clients</div>
+        <h1>
+          Custom <span class="highlight">AI Systems</span><br>
+          and Smart Websites customized<br>
+          for your business needs
+        </h1>
+        <p>
+          I build AI agents, automated phone systems, and full-service websites that make your business run itself.
+          No bullshit, no $10k agency fees. Just real tech that works.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn-primary">Start a Trade →</a>
+          <a href="#services" class="btn-secondary">See What I Build</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="num">100%</span><span class="label">Custom Built</span></div>
+          <div class="hero-stat"><span class="num">AI</span><span class="label">Powered</span></div>
+          <div class="hero-stat"><span class="num">Global</span><span class="label">Digital Operation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services" style="background:#12121a;">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:16px;">
+        <span class="section-label">What I Build</span>
+        <h2 class="section-title">Full-Stack AI Solutions<br>for Real People</h2>
+        <p class="section-sub" style="margin:0 auto;">Every project is custom-built. No templates, no BS.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon">🤖</div>
+          <h3>Custom AI Agents</h3>
+          <p>Your own AI assistant — answers calls, handles emails, manages customer tickets, quotes prices. Trained on your business, not generic.</p>
+          <ul>
+            <li>📞 AI phone systems (Twilio + ElevenLabs)</li>
+            <li>💬 Smart chatbot for your website</li>
+            <li>📧 Automated email handling</li>
+            <li>🔧 Custom trained on your business</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="icon">🌐</div>
+          <h3>Smart Websites</h3>
+          <p>Full websites with AI built right in. Not just a brochure — a site that works for you 24/7.</p>
+          <ul>
+            <li>🎨 Professional UI/UX design</li>
+            <li>🤖 Built-in AI assistant</li>
+            <li>📱 Fully responsive</li>
+            <li>⚡ Lightning fast</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="icon">⚡</div>
+          <h3>Business Automation</h3>
+          <p>Automate the boring stuff — scheduling, invoicing, customer follow-ups, inventory tracking.</p>
+          <ul>
+            <li>📅 Auto-scheduling &amp; reminders</li>
+            <li>📊 Custom dashboards</li>
+            <li>🔗 API integrations (Google, Notion, etc.)</li>
+            <li>📈 Analytics &amp; reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="section-label">About Me</span>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+            <img src="/assets/business-mac.png" alt="Mac" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(168,85,247,0.35);flex-shrink:0;">
+            <h2 class="section-title" style="margin-bottom:0;">I'm Mac</h2>
+          </div>
+          <p>I'm an AI Systems Architect that focuses on Building Automation That Actually Works.</p>
+          <p>I build custom AI agents, automated phone systems, smart websites, and seriously overpowered AI setups for businesses that are tired of doing things manually. Think AI that actually answers your calls, runs your customer chats, and handles the boring stuff so you don't have to. We're talking AI that picks up your calls, handles your customer chats, and takes care of all the repetitive stuff that kills productivity.</p>
+          <p>I'm obsessed with making technology actually useful instead of just shiny. If it doesn't solve a real problem or save time, we're not building it. Everything I touch gets built to actually work at scale—because half-baked automation is worse than no automation.</p>
+          <p style="font-weight:600;color:#f0edf6;margin-top:20px;">What this means for your business:</p>
+          <ul style="list-style:none;margin-bottom:16px;">
+            <li style="color:#9895b0;font-size:14px;padding:4px 0;">• <span class="emphasis">AI that works for you</span> — Your business runs 24/7 without you being glued to it</li>
+            <li style="color:#9895b0;font-size:14px;padding:4px 0;">• <span class="emphasis">No agency markup</span> — Direct pricing, zero corporate bullshit, real results</li>
+            <li style="color:#9895b0;font-size:14px;padding:4px 0;">• <span class="emphasis">Battle-tested tech</span> — Production-proven stacks, not prototype junk</li>
+            <li style="color:#9895b0;font-size:14px;padding:4px 0;">• <span class="emphasis">Custom, not cookie-cutter</span> — Every project built from scratch for your operation</li>
+          </ul>
+          <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px;">
+            <div style="font-size:14px;color:#9895b0;">📧 <a href="mailto:mac_airheart@enlightenedrepublic.tech" style="color:#a855f7;">mac_airheart@enlightenedrepublic.tech</a></div>
+            <div style="font-size:14px;color:#9895b0;">📞 <a href="tel:+17542194100" style="color:#9895b0;">+1 (754) 219-4100</a></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:center;">
+          <img src="/assets/airheart-systems-logo.png" alt="Airheart Systems Logo" style="width:260px;height:260px;object-fit:contain;animation:pulse-glow 2.5s ease-in-out infinite;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing" style="background:#12121a;">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:16px;">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">Fair Deals,<br>No Gatekeeping</h2>
+        <p class="section-sub" style="margin:0 auto;">Flat rates. No hidden fees. No bullshit.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="plan-name">Trade 🤝</div>
+          <div class="price">Trade</div>
+          <div class="price-desc">PC parts, electronics, collab proposals? Let's trade for my services.</div>
+          <ul>
+            <li>Fair value trades</li>
+            <li>No cash needed</li>
+            <li>Custom quote</li>
+          </ul>
+          <a href="#contact" class="btn-outline">Propose a Trade</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="plan-name">Business Core</div>
+          <div class="price">$2,500</div>
+          <div class="price-desc">Complete digital overhaul — the central hub that runs your operations.</div>
+          <ul>
+            <li>Complete Website Development</li>
+            <li>AI Web Chatbot Integration</li>
+            <li>Booking/Lead Automation</li>
+            <li>SEO &amp; Analytics Setup</li>
+            <li>24/7 Priority Support</li>
+          </ul>
+          <button onclick="openBuilder()" class="btn-outline" style="width:100%;cursor:pointer;font-family:'Inter',sans-serif;">🛠️ Start Build</button>
+        </div>
+        <div class="pricing-card">
+          <div class="plan-name">ClawBuddy Package 👾</div>
+          <div class="price">$350 <span class="price-unit">/setup</span></div>
+          <div class="price-desc">A personal digital buddy web-app. AI companion with memory and personality.</div>
+          <ul>
+            <li>Custom Agent Personality</li>
+            <li>Memory Engine Setup</li>
+            <li>Private Web Interface</li>
+            <li>Secure Cloud Deployment</li>
+          </ul>
+          <a href="#contact" class="btn-outline">Get a Buddy</a>
+        </div>
+        <div class="pricing-card">
+          <div class="plan-name">Web Development 🌐</div>
+          <div class="price">From $400</div>
+          <div class="price-desc">Custom coded website builds and redesigns. Clean, modern, scalable.</div>
+          <ul>
+            <li>Regular Website Builds</li>
+            <li>UI/UX Redesigns</li>
+            <li>Domain and Hosting Setup</li>
+            <li>Tech Help &amp; App Building</li>
+          </ul>
+          <a href="#contact" class="btn-outline">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:48px;">
+        <span class="section-label">Get In Touch</span>
+        <h2 class="section-title" style="margin-bottom:8px;">Let's Build Something</h2>
+        <p class="section-sub" style="margin:0 auto;">Fill out the form or reach out directly.</p>
+      </div>
+
+      <div class="contact-info-grid" style="max-width:640px; margin:0 auto 40px;">
+        <div class="contact-info-card">
+          <div class="contact-info-icon">📧</div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-value"><a href="mailto:mac_airheart@enlightenedrepublic.tech">mac_airheart@<br>enlightenedrepublic.tech</a></div>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-icon">📞</div>
+          <div>
+            <div class="contact-info-label">Phone</div>
+            <div class="contact-info-value"><a href="tel:+17542194100">+1 (754) 219-4100</a></div>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-icon">📍</div>
+          <div>
+            <div class="contact-info-label">Location</div>
+            <div class="contact-info-value">Remote / Digital</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap" id="form-wrap">
+        <div id="form-success" class="form-success" style="display:none;">
+          <div class="icon">🎉</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Message Sent!</h3>
+          <p style="color:#9895b0;font-size:14px;margin-bottom:20px;">Thanks! I'll get back to you fast. Jump into the Discord for the latest in the meantime.</p>
+          <button onclick="resetForm()" class="btn-primary" style="border:none;cursor:pointer;">Send Another</button>
+        </div>
+        <form id="contact-form" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="name">Name *</label>
+              <input class="form-input" id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="email">Email *</label>
+              <input class="form-input" id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="company">Company</label>
+            <input class="form-input" id="company" name="company" type="text" placeholder="Your company (optional)" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="service">Service Interest *</label>
+            <select class="form-input" id="service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option>Custom AI Agents</option>
+              <option>Smart Websites</option>
+              <option>Business Automation</option>
+              <option>ClawBuddy Package</option>
+              <option>Custom Build</option>
+              <option>Trade 🤝</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message *</label>
+            <textarea class="form-input form-textarea" id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <div id="form-error" class="form-error" style="display:none;"></div>
+          <button type="submit" class="form-submit" id="submit-btn">Send Message →</button>
+        </form>
+      </div>
+
+      <div style="margin-top:40px; text-align:center; color:#9895b0; font-size:14px; max-width:520px; margin-left:auto; margin-right:auto;">
+        <p style="font-style:italic;">If you want the real sauce, jump into our Discord community. Humans and AI hanging out, building together, dropping the latest AI breakthroughs.</p>
+        <div style="margin-top:16px; display:flex; justify-content:center; gap:24px;">
+          <a href="https://discord.gg/86gDBxUK" target="_blank" rel="noopener noreferrer" style="color:#a855f7; font-weight:700;">Join the Discord</a>
+          <a href="https://x.com/EnlightenedRep" target="_blank" style="color:#ec4899; font-weight:700;">Follow on X</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-bottom">
+    <div class="container">
+      Airheart Systems · <span class="family">Airheart Family</span> · <a href="https://enlightenedrepublic.tech" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Enlightened Republic</a>
+      <br>
+      <span style="font-size:11px; color:#252540; margin-top:4px; display:inline-block;">
+        Research first. Precision always. No guesswork.
+      </span>
+    </div>
+  </div>
+
+  <!-- BUSINESS CORE BUILDER MODAL -->
+  <div id="builder-overlay">
+    <div id="builder-container">
+
+      <div class="builder-header">
+        <div>
+          <h2>🛠️ Start Your Business Core Build</h2>
+          <p>Customize your package — your total updates live. No payment now.</p>
+        </div>
+        <button class="builder-close" onclick="closeBuilder()">✕</button>
+      </div>
+
+      <!-- STEP 1: CONFIGURE -->
+      <div id="bstep1" style="padding:32px;">
+
+        <!-- Base services — all togglable -->
+        <div style="margin-bottom:32px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#a855f7;margin-bottom:6px;">Core Services</div>
+          <div style="font-size:12px;color:#6b6880;margin-bottom:14px;">All selected by default — remove anything you don't need to lower your total.</div>
+          <div style="display:flex;flex-direction:column;gap:10px;" id="bcore"></div>
+        </div>
+
+        <!-- Add-ons -->
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#a855f7;margin-bottom:6px;">Power-Ups</div>
+        <div style="font-size:12px;color:#6b6880;margin-bottom:14px;">Optional — stack on whatever else you need.</div>
+        <div style="display:flex;flex-direction:column;gap:10px;" id="baddons"></div>
+
+        <!-- Total -->
+        <div style="margin-top:28px;background:#1a1a2e;border:1px solid #252540;border-radius:14px;padding:20px;">
+          <div id="baddon-lines" style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;"></div>
+          <hr class="sum-divider" style="margin:0 0 16px;">
+          <div class="sum-total">
+            <span class="tl">Total Estimate</span>
+            <span class="ta" id="sum-total">$2,500</span>
+          </div>
+        </div>
+
+        <button class="builder-cta" onclick="bGoStep2()">Review &amp; Send to Mac →</button>
+        <p style="font-size:11px;color:#6b6880;text-align:center;margin-top:10px;line-height:1.6;">No payment now — Mac reviews your selections and sends a final quote within 24h.</p>
+      </div>
+
+      <!-- STEP 2: CONTACT -->
+      <div id="bstep2" style="display:none;padding:32px;">
+        <button class="builder-back" onclick="bGoStep1()">← Back</button>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:6px;">Almost there!</h3>
+        <p style="color:#9895b0;font-size:14px;margin-bottom:24px;">Tell Mac who you are — final quote lands in your inbox within 24 hours.</p>
+        <div id="b-recap" style="background:#1a1a2e;border:1px solid #252540;border-radius:14px;padding:20px;margin-bottom:24px;font-size:13px;"></div>
+        <form id="bform" onsubmit="bSubmit(event)">
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0;"><label class="form-label">Name *</label><input class="form-input" id="b-name" type="text" placeholder="Your name" required /></div>
+            <div class="form-group" style="margin-bottom:0;"><label class="form-label">Email *</label><input class="form-input" id="b-email" type="email" placeholder="you@example.com" required /></div>
+          </div>
+          <div class="form-row" style="margin-top:16px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Phone *</label>
+              <input class="form-input" id="b-phone" type="tel" placeholder="+1 (555) 000-0000" required />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Business name (optional)</label>
+              <input class="form-input" id="b-biz" type="text" placeholder="Your business or brand" />
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:16px;">
+            <label class="form-label">Notes (optional)</label>
+            <textarea class="form-input form-textarea" id="b-notes" placeholder="Tell Mac about your business, timeline, or anything specific you need..." style="min-height:80px;"></textarea>
+          </div>
+          <div id="b-error" class="form-error" style="display:none;"></div>
+          <button type="submit" class="form-submit" id="b-submit" style="margin-top:16px;">Send to Mac →</button>
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div id="bsuccess" style="display:none;text-align:center;padding:64px 32px;">
+        <div style="font-size:52px;margin-bottom:16px;">🎉</div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Request Sent!</h3>
+        <p style="color:#9895b0;max-width:400px;margin:0 auto 24px;font-size:14px;line-height:1.7;">Mac got your full package details and will send a final quote within 24 hours. Check your inbox.</p>
+        <button onclick="closeBuilder()" class="btn-primary" style="border:none;cursor:pointer;">Back to Site</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EMAIL PICKER MODAL -->
+  <div id="email-picker" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.72);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;">
+    <div style="background:#1a1a2e;border:1px solid #252540;border-radius:20px;padding:32px;max-width:360px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,0.65);">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:6px;color:#f0edf6;">Open with your email app</h3>
+      <p style="color:#9895b0;font-size:13px;margin-bottom:24px;">Choose how to send your message to Mac.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a id="pick-gmail" href="#" target="_blank" onclick="closePicker()" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid #252540;border-radius:12px;color:#f0edf6;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+          <span style="width:32px;height:32px;background:#EA4335;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0;">G</span>
+          Gmail
+        </a>
+        <a id="pick-outlook" href="#" target="_blank" onclick="closePicker()" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid #252540;border-radius:12px;color:#f0edf6;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+          <span style="width:32px;height:32px;background:#0078D4;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0;">O</span>
+          Outlook
+        </a>
+        <a id="pick-yahoo" href="#" target="_blank" onclick="closePicker()" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid #252540;border-radius:12px;color:#f0edf6;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+          <span style="width:32px;height:32px;background:#6001D2;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0;">Y</span>
+          Yahoo Mail
+        </a>
+        <a id="pick-default" href="#" onclick="closePicker()" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid #252540;border-radius:12px;color:#f0edf6;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+          <span style="width:32px;height:32px;background:#252540;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📧</span>
+          Default Mail App
+        </a>
+      </div>
+      <button onclick="closePicker()" style="margin-top:18px;width:100%;padding:11px;border-radius:999px;background:none;border:1px solid #252540;color:#6b6880;font-size:13px;cursor:pointer;font-family:Inter,sans-serif;transition:color 0.2s;" onmouseover="this.style.color='#f0edf6'" onmouseout="this.style.color='#6b6880'">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    // Particle canvas
+    (function() {
+      const canvas = document.getElementById('orb-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [], animId, mouseX = -1000, mouseY = -1000;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resize(); window.addEventListener('resize', resize);
+      const count = Math.min(60, Math.floor((window.innerWidth * window.innerHeight) / 15000));
+      for (let i = 0; i < count; i++) {
+        particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random()-0.5)*0.35, vy: (Math.random()-0.5)*0.35, size: Math.random()*2.5+0.8, hue: 260+Math.random()*60, alpha: Math.random()*0.4+0.15 });
+      }
+      window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of particles) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+          const dx = mouseX-p.x, dy = mouseY-p.y, dist = Math.sqrt(dx*dx+dy*dy);
+          if (dist < 150) { p.x -= dx*0.008; p.y -= dy*0.008; }
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+          ctx.fillStyle = `hsla(${p.hue}, 70%, 60%, ${p.alpha})`; ctx.fill();
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size*3, 0, Math.PI*2);
+          ctx.fillStyle = `hsla(${p.hue}, 70%, 60%, ${p.alpha*0.06})`; ctx.fill();
+        }
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i+1; j < particles.length; j++) {
+            const dx = particles[i].x-particles[j].x, dy = particles[i].y-particles[j].y, dist = Math.sqrt(dx*dx+dy*dy);
+            if (dist < 100) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `hsla(270, 60%, 60%, ${(1-dist/100)*0.1})`; ctx.lineWidth = 0.5; ctx.stroke(); }
+          }
+        }
+        animId = requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // Shared nav
+    (function(){var nav=document.getElementById('erNav');window.addEventListener('scroll',function(){nav.style.background=window.scrollY>20?'rgba(8,8,13,0.97)':'rgba(8,8,13,0.88)';});var btn=document.getElementById('erMobileBtn');var menu=document.getElementById('erMobileMenu');btn.addEventListener('click',function(){btn.classList.toggle('open');menu.classList.toggle('open');});document.querySelectorAll('.er-mobile-menu a').forEach(function(a){a.addEventListener('click',function(){btn.classList.remove('open');menu.classList.remove('open');});});})();
+
+    // Email picker
+    function openEmailPicker(subject, body) {
+      const s = encodeURIComponent(subject);
+      const b = encodeURIComponent(body);
+      const to = 'mac_airheart@enlightenedrepublic.tech';
+      const toEnc = encodeURIComponent(to);
+      document.getElementById('pick-gmail').href = `https://mail.google.com/mail/?view=cm&to=${toEnc}&su=${s}&body=${b}`;
+      document.getElementById('pick-outlook').href = `https://outlook.live.com/mail/0/deeplink/compose?to=${toEnc}&subject=${s}&body=${b}`;
+      document.getElementById('pick-yahoo').href = `https://compose.mail.yahoo.com/?to=${toEnc}&subject=${s}&body=${b}`;
+      document.getElementById('pick-default').href = `mailto:${to}?subject=${s}&body=${b}`;
+      const picker = document.getElementById('email-picker');
+      picker.style.display = 'flex';
+    }
+    function closePicker() { document.getElementById('email-picker').style.display = 'none'; }
+    document.getElementById('email-picker').addEventListener('click', function(e) { if (e.target === this) closePicker(); });
+
+    // Intercept all mailto: links to show picker
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        try {
+          const url = new URL(this.href);
+          const subject = url.searchParams.get('subject') || 'Quote Request - Airheart Systems';
+          openEmailPicker(subject, '');
+        } catch(_) { openEmailPicker('Quote Request - Airheart Systems', ''); }
+      });
+    });
+
+    // Contact form
+    async function submitForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const errEl = document.getElementById('form-error');
+      btn.disabled = true; btn.textContent = 'Sending...'; errEl.style.display = 'none';
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const company = document.getElementById('company').value;
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value;
+      const subject = `New Lead [Airheart Systems]: ${service || 'General Inquiry'}${company ? ' - ' + company : ''}`;
+      const text = `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nService: ${service}\nMessage: ${message}`;
+      try {
+        const res = await fetch('/api/contact-systems', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to: 'mac_airheart@enlightenedrepublic.tech', reply_to: email, subject, text })
+        });
+        if (!res.ok) throw new Error('Send failed');
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      } catch {
+        errEl.textContent = 'Something went wrong. Email directly: mac_airheart@enlightenedrepublic.tech';
+        errEl.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Send Message →';
+      }
+    }
+    // ===== BUSINESS CORE BUILDER =====
+    const BC_CORE = [
+      { id:'website',  label:'🌐 Complete Website Development',  desc:'Fully custom-coded site — design, build, deploy, done.', price:1000 },
+      { id:'chatbot',  label:'🤖 AI Web Chatbot Integration',    desc:'Smart AI assistant embedded on your site, trained on your business.', price:600 },
+      { id:'booking',  label:'📅 Booking & Lead Automation',     desc:'Capture leads, schedule appointments, follow up automatically.', price:450 },
+      { id:'seo',      label:'📈 SEO & Analytics Setup',         desc:'Google Search Console, Analytics, on-page SEO — built to rank.', price:300 },
+      { id:'support',  label:'🛡️ 24/7 Priority Support',         desc:'Direct line to Mac. Issues get fixed fast, no ticket queue.', price:150 },
+    ];
+    const BC_ADDONS = [
+      { id:'phone-ai', label:'☎️ AI Phone Agent',           desc:'Your business line answered 24/7 by a custom-trained AI — books appointments, handles inquiries, closes leads like your best employee. Powered by ElevenLabs + Twilio. Platform credits billed separately.', price:500, note:'basic pkg' },
+      { id:'ecomm',    label:'🛒 E-Commerce Store',         desc:'Full online store — products, cart, checkout, inventory. Built to convert.', price:600 },
+      { id:'crm',      label:'🗂️ CRM Integration',          desc:'Connect to HubSpot, GoHighLevel, or a custom CRM. Leads auto-flow in, nothing slips.', price:300 },
+      { id:'social',   label:'📱 Social Media Automation',  desc:'Auto-posting, scheduled content pipelines, analytics dashboards across your platforms.', price:250 },
+      { id:'retainer', label:'🔧 Monthly Maintenance',      desc:'Ongoing updates, monitoring, bug fixes, priority support — Mac keeps everything sharp.', price:150, note:'/mo' },
+      { id:'hosting',  label:'🌍 Complete Web Hosting',      desc:'Full managed hosting for your site — fast, secure, always-on. Domain, SSL, CDN, and uptime monitoring included. We handle the infrastructure so you never think about it.', price:50, note:'/mo' },
+    ];
+
+    let bcCore = new Set(BC_CORE.map(x => x.id));
+    let bcAddons = new Set();
+
+    function openBuilder() {
+      bcCore = new Set(BC_CORE.map(x => x.id));
+      bcAddons = new Set();
+      renderItems();
+      bUpdateSummary();
+      document.getElementById('bstep1').style.display = '';
+      document.getElementById('bstep2').style.display = 'none';
+      document.getElementById('bsuccess').style.display = 'none';
+      document.getElementById('builder-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBuilder() {
+      document.getElementById('builder-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function makeCard(o, selected, toggleFn, pricePrefix) {
+      const sel = selected ? ' sel' : '';
+      const p = pricePrefix + '$' + o.price.toLocaleString() + (o.note ? ' (' + o.note + ')' : '');
+      return `<div class="bopt${sel}" onclick="${toggleFn}('${o.id}',this)">
+        <div class="bck"></div>
+        <div style="flex:1;">
+          <div class="bl">${o.label}</div>
+          <div class="bd">${o.desc}</div>
+          <div class="bp">${p}</div>
+        </div>
+      </div>`;
+    }
+
+    function renderItems() {
+      document.getElementById('bcore').innerHTML = BC_CORE.map(o => makeCard(o, bcCore.has(o.id), 'bcToggleCore', '')).join('');
+      document.getElementById('baddons').innerHTML = BC_ADDONS.map(o => makeCard(o, bcAddons.has(o.id), 'bcToggleAddon', '+')).join('');
+    }
+
+    function bcToggleCore(id, el) {
+      bcCore.has(id) ? bcCore.delete(id) : bcCore.add(id);
+      el.classList.toggle('sel');
+      bUpdateSummary();
+    }
+    function bcToggleAddon(id, el) {
+      bcAddons.has(id) ? bcAddons.delete(id) : bcAddons.add(id);
+      el.classList.toggle('sel');
+      bUpdateSummary();
+    }
+
+    function bcTotal() {
+      let t = 0;
+      bcCore.forEach(id => { const o = BC_CORE.find(x => x.id === id); if (o) t += o.price; });
+      bcAddons.forEach(id => { const o = BC_ADDONS.find(x => x.id === id); if (o) t += o.price; });
+      return t;
+    }
+
+    function bUpdateSummary() {
+      const linesEl = document.getElementById('baddon-lines');
+      let h = '';
+      bcCore.forEach(id => {
+        const o = BC_CORE.find(x => x.id === id);
+        if (!o) return;
+        h += `<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0;gap:12px;"><span style="color:#9895b0;">${o.label}</span><span style="font-family:'JetBrains Mono',monospace;color:#f0edf6;">$${o.price.toLocaleString()}</span></div>`;
+      });
+      bcAddons.forEach(id => {
+        const o = BC_ADDONS.find(x => x.id === id);
+        if (!o) return;
+        const p = `+$${o.price}${o.note ? ' ('+o.note+')' : ''}`;
+        h += `<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0;gap:12px;"><span style="color:#9895b0;">${o.label}</span><span style="font-family:'JetBrains Mono',monospace;color:#a855f7;">${p}</span></div>`;
+      });
+      if (!h) h = `<div style="color:#6b6880;font-size:12px;text-align:center;padding:8px 0;">Select at least one service above</div>`;
+      linesEl.innerHTML = h;
+      document.getElementById('sum-total').textContent = `$${bcTotal().toLocaleString()}`;
+    }
+
+    function bGoStep2() {
+      if (bcCore.size === 0 && bcAddons.size === 0) {
+        alert('Please select at least one service before continuing.');
+        return;
+      }
+      const total = bcTotal();
+      let recap = `<div style="font-size:11px;font-weight:700;color:#a855f7;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.1em;">Your Custom Package</div>`;
+      bcCore.forEach(id => {
+        const o = BC_CORE.find(x => x.id === id);
+        if (!o) return;
+        recap += `<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);gap:12px;"><span style="color:#9895b0;">${o.label}</span><span style="color:#f0edf6;">$${o.price.toLocaleString()}</span></div>`;
+      });
+      bcAddons.forEach(id => {
+        const o = BC_ADDONS.find(x => x.id === id);
+        if (!o) return;
+        const p = `+$${o.price}${o.note ? ' ('+o.note+')' : ''}`;
+        recap += `<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);gap:12px;"><span style="color:#9895b0;">${o.label}</span><span style="color:#f0edf6;">${p}</span></div>`;
+      });
+      recap += `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:2px;"><span style="font-size:14px;font-weight:700;">Total Estimate</span><span style="font-size:20px;font-weight:800;font-family:'JetBrains Mono',monospace;background:linear-gradient(135deg,#a855f7,#ec4899,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$${total.toLocaleString()}</span></div>`;
+      document.getElementById('b-recap').innerHTML = recap;
+      document.getElementById('bstep1').style.display = 'none';
+      document.getElementById('bstep2').style.display = '';
+      document.getElementById('builder-container').scrollTop = 0;
+    }
+    function bGoStep1() {
+      document.getElementById('bstep1').style.display = '';
+      document.getElementById('bstep2').style.display = 'none';
+    }
+
+    async function bSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('b-name').value.trim();
+      const email = document.getElementById('b-email').value.trim();
+      const phone = document.getElementById('b-phone').value.trim();
+      const biz = document.getElementById('b-biz').value.trim();
+      const notes = document.getElementById('b-notes').value.trim();
+      const btn = document.getElementById('b-submit');
+      const errEl = document.getElementById('b-error');
+      btn.disabled = true; btn.textContent = 'Sending...'; errEl.style.display = 'none';
+
+      const total = bcTotal();
+      const coreLines = [...bcCore].map(id => { const o = BC_CORE.find(x => x.id === id); return `  ${o.label}: $${o.price}`; });
+      const addonLines = [...bcAddons].map(id => { const o = BC_ADDONS.find(x => x.id === id); return `  + ${o.label}${o.note?' ('+o.note+')':''}: +$${o.price}`; });
+      const specText = [
+        `=== BUSINESS CORE BUILD REQUEST ===`,
+        `Customer: ${name}`,
+        `Email:    ${email}`,
+        `Phone:    ${phone}`,
+        biz ? `Business: ${biz}` : '',
+        ``,
+        `SELECTED SERVICES`,
+        `-----------------------------------`,
+        ...coreLines,
+        addonLines.length ? '' : null,
+        ...addonLines,
+        ``,
+        `TOTAL ESTIMATE: $${total.toLocaleString()}`,
+        `-----------------------------------`,
+        notes ? `\nNotes:\n"${notes}"` : null,
+      ].filter(l => l !== undefined && l !== null).join('\n');
+
+      try {
+        const res = await fetch('/api/contact-systems', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: 'mac_airheart@enlightenedrepublic.tech',
+            reply_to: email,
+            subject: `🛠️ Build Request — ${name}${biz?' ('+biz+')':''} ($${total.toLocaleString()})`,
+            text: specText
+          })
+        });
+        if (!res.ok) throw new Error();
+        document.getElementById('bstep2').style.display = 'none';
+        document.getElementById('bsuccess').style.display = '';
+        document.getElementById('builder-container').scrollTop = 0;
+      } catch {
+        errEl.textContent = 'Something went wrong. Email mac_airheart@enlightenedrepublic.tech directly.';
+        errEl.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Send to Mac →';
+      }
+    }
+
+    document.getElementById('builder-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeBuilder();
+    });
+
+
+
+    function resetForm() {
+      document.getElementById('contact-form').reset();
+      document.getElementById('contact-form').style.display = 'block';
+      document.getElementById('form-success').style.display = 'none';
+      document.getElementById('form-error').style.display = 'none';
+      document.getElementById('submit-btn').disabled = false;
+      document.getElementById('submit-btn').textContent = 'Send Message →';
+    }
+
+    document.querySelectorAll('a[href="#contact"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var el = document.getElementById('contact');
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset + 80, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
